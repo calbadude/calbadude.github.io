@@ -34,6 +34,16 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        /* Style for sub-questions dropdown */
+        .sub-questions {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .sub-questions.active {
+            max-height: 200px; /* Adjust as needed for content */
+            transition: max-height 0.5s ease-in;
+        }
     </style>
 </head>
 <body class="text-[#131B2A] bg-[#FFF6E5]">
@@ -106,11 +116,11 @@
                             <li>What are your strategies for automation and orchestration across your IT environment?</li>
                             <li>Are you looking to consolidate or optimize your existing infrastructure?</li>
                             <li>
-                                <span class="sub-question-toggle cursor-pointer font-semibold text-[#004FFF] hover:underline">
+                                <span class="sub-question-toggle cursor-pointer font-semibold text-[#004FFF] hover:underline flex items-center">
                                     What operating systems are currently in use across your infrastructure (e.g., Windows Server, specific Linux distributions)?
-                                    <svg class="inline-block w-4 h-4 ml-1 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    <svg class="inline-block w-4 h-4 ml-1 transform transition-transform duration-300 sub-question-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </span>
-                                <ul class="sub-questions ml-6 mt-2 space-y-1 text-gray-600 text-sm italic hidden">
+                                <ul class="sub-questions ml-6 mt-2 space-y-1 text-gray-600 text-sm italic">
                                     <li>If Windows: How are you currently managing patching, updates, and automation for your Windows servers? What challenges do you face?</li>
                                     <li>If other Linux distros (not RHEL): What are your considerations around consolidating or standardizing your Linux environments? What are your current challenges with procurement, security, or support for these non-RHEL systems?</li>
                                 </ul>
@@ -207,12 +217,36 @@
             </div>
 
             <h3 class="text-xl font-semibold text-[#131B2A] mb-3">Visual Diagram (Placeholder)</h3>
-            <p class="mb-4 text-gray-600">To add your diagram, replace this placeholder text with an `<img>` tag and your image's URL. For example: `<img src="YOUR_IMAGE_URL_HERE" alt="Red Hat Product Ecosystem Diagram" class="max-w-full h-auto mx-auto block">`</p>
+            <p class="mb-4 text-gray-600">This diagram illustrates the relationship between Red Hat products and their upstream open-source projects.</p>
             <div class="w-full bg-gray-200 flex flex-col items-center justify-center rounded-lg text-gray-500 text-center p-4">
-                <img src=""https://github.com/calbadude/calbadude.github.io/blob/main/Redhat_portfolio.png?raw=true" alt="Red Hat Product Ecosystem Diagram" class="max-w-full h-auto mx-auto block"> -->
-                <p class="p-4">
-                    Your diagram will appear here. Please replace this text with your `<img>` tag.
-                </p>
+                <img src="https://github.com/calbadude/calbadude.github.io/blob/main/Redhat_portfolio.png?raw=true" alt="Red Hat Product Ecosystem Diagram" class="max-w-full h-auto mx-auto block">
+            </div>
+        </section>
+
+        <!-- New: Red Hat OpenShift Offerings Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-[#004FFF] mb-4">Red Hat OpenShift Offerings</h2>
+            <p class="mb-4 text-gray-600">Red Hat OpenShift is a comprehensive application platform built on Kubernetes. It comes in various offerings tailored to different enterprise needs:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-[#004FFF] shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2 text-[#131B2A]">OpenShift Kubernetes Engine (OKE)</h3>
+                    <p class="text-gray-700 text-sm">
+                        Provides the foundational, security-focused capabilities of enterprise Kubernetes on Red Hat Enterprise Linux CoreOS. Ideal for those who prefer to use their existing infrastructure and developer tool investments. It focuses on core Kubernetes functionalities.
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-[#00F4C8] shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2 text-[#131B2A]">OpenShift Container Platform (OCP)</h3>
+                    <p class="text-gray-700 text-sm">
+                        The full-featured enterprise Kubernetes platform. OCP includes everything in OKE plus a rich set of developer tools, automation capabilities (e.g., CI/CD pipelines, GitOps), service mesh, serverless functions, and integrated management. It's designed for accelerating application development and modernization.
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-[#FFC700] shadow-sm">
+                    <h3 class="text-xl font-semibold mb-2 text-[#131B2A]">OpenShift Platform Plus</h3>
+                    <p class="text-gray-700 text-sm">
+                        The most comprehensive OpenShift offering, building on OCP with additional capabilities for multicluster management (Red Hat Advanced Cluster Management), Kubernetes-native security (Red Hat Advanced Cluster Security), and a scalable container image registry (Red Hat Quay). It's for organizations needing advanced security, compliance, and centralized management across a distributed OpenShift footprint.
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -309,7 +343,7 @@
     </div>
 
     <script type="module">
-        // Accordion functionality
+        // Accordion functionality for main sections
         document.querySelectorAll('.accordion-header').forEach(button => {
             button.addEventListener('click', () => {
                 const accordionContent = button.nextElementSibling;
@@ -326,6 +360,20 @@
                 // Toggle the clicked accordion
                 accordionContent.classList.toggle('active');
                 svgIcon.classList.toggle('rotate-180');
+            });
+        });
+
+        // Toggle functionality for sub-questions
+        document.querySelectorAll('.sub-question-toggle').forEach(toggleSpan => {
+            toggleSpan.addEventListener('click', (event) => {
+                // Stop propagation to prevent the parent accordion from closing
+                event.stopPropagation();
+                const subQuestionsList = toggleSpan.nextElementSibling;
+                const icon = toggleSpan.querySelector('.sub-question-icon');
+
+                subQuestionsList.classList.toggle('active');
+                subQuestionsList.classList.toggle('hidden'); // Toggle hidden class for initial state
+                icon.classList.toggle('rotate-180');
             });
         });
 
